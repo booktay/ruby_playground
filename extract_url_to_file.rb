@@ -1,7 +1,9 @@
 require 'open-uri'
 require "nokogiri"
 
-urls = []
+urls = [
+
+]
 
 image_urls = []
 
@@ -12,8 +14,8 @@ urls.each do |url|
     doc = Nokogiri::HTML(open(url))
 
     # Get img urls list
-    search_keyword = 'div.display_content img'
-    filter_keyword = 'src'
+    search_keyword = 'ul.lst a'
+    filter_keyword = 'href'
 
     # Map URLs
     src_value = doc.css(search_keyword).map { |link| link[filter_keyword] }
