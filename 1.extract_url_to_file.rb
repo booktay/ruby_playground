@@ -2,7 +2,6 @@ require 'open-uri'
 require "nokogiri"
 
 urls = [
-
 ]
 
 image_urls = []
@@ -22,5 +21,5 @@ urls.each do |url|
     image_urls = image_urls + src_value
 end
 
-dest = "result/" + "url.json"
-File.open(dest, 'wb') { |f| f.write(image_urls) }
+destination_path = "result/"
+File.open(destination_path + "url.json", 'wb') { |f| f.write(image_urls) }

@@ -16,19 +16,20 @@ urls.each do |url|
 
     # Map URLs
     image_urls = doc.css(search_keyword).map { |link| link[filter_keyword] }
+    
     puts "Number of images : " + image_urls.length.to_s
 
     # Save Results Url to file
     image_urls.each_with_index do |imgurl, index|
       directory = "opc"
-      name = "opc_" + url.split('/').last + "-" + (index+1).to_s + ".jpg"
-      dest = "result/" + directory + "/" + name
+      name = directory + "_" + url.split('/').last + "-" + (index+1).to_s + ".jpg"
+      destination_path = "result/" + directory + "/" + name
 
       open(imgurl) do |u|
-        File.open(dest, 'wb') { |f| f.write(u.read) }
+        File.open(destination_path, 'wb') { |f| f.write(u.read) }
       end
 
-      puts dest
+      puts (index+1).to_s + "/" + image_urls.length.to_s + "] " + name
     end
     puts "Complete : " + url
 end
