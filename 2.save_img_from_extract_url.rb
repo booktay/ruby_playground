@@ -1,5 +1,6 @@
 require 'open-uri'
 require "nokogiri"
+require 'fileutils'
 
 urls = [
 ]
@@ -19,17 +20,23 @@ urls.each do |url|
     
     puts "Number of images : " + image_urls.length.to_s
 
+    directory = "opc"
+    episode = url.split('/').last.tr('^0-9', '')
+    destination_path = "result/" + directory + "/"
+    
+    unless File.directory?(destination_path)
+      FileUtils.mkdir_p(destination_path)
+    end
+
     # Save Results Url to file
     image_urls.each_with_index do |imgurl, index|
-      directory = "opc"
-      name = directory + "_" + url.split('/').last + "-" + (index+1).to_s + ".jpg"
-      destination_path = "result/" + directory + "/" + name
+      name = directory + "_" + episode + "_" + (index+1).to_s + ".jpg"
 
       open(imgurl) do |u|
-        File.open(destination_path, 'wb') { |f| f.write(u.read) }
+        File.open(destination_path + name, 'wb') { |f| f.write(u.read) }
       end
 
-      puts (index+1).to_s + "/" + image_urls.length.to_s + "] " + name
+      puts "[" + (index+1).to_s + "/" + image_urls.length.to_s + "] " + name
     end
     puts "Complete : " + url
 end

@@ -21,5 +21,6 @@ urls.each do |url|
     image_urls = image_urls + src_value
 end
 
+# puts image_urls
 destination_path = "result/"
 File.open(destination_path + "url.json", 'wb') { |f| f.write(image_urls) }
