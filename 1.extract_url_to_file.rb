@@ -2,6 +2,7 @@ require 'open-uri'
 require "nokogiri"
 
 urls = [
+    ""
 ]
 
 image_urls = []
@@ -10,7 +11,7 @@ urls.each do |url|
     puts url
 
     # Get Source html from url
-    doc = Nokogiri::HTML(open(url))
+    doc = Nokogiri::HTML(URI.open(url))
 
     # Get img urls list
     search_keyword = 'ul.lst a'
