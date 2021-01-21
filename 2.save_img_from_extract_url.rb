@@ -6,11 +6,14 @@ urls = [
   ""
 ]
 
-directory = "opc"
+
+directory = ""
 destination_path = "result/" + directory + "/"
 unless File.directory?(destination_path)
   FileUtils.mkdir_p(destination_path)
 end
+
+images_quantity = 0
 
 urls.each do |url|
     puts "Start : " + url
@@ -31,7 +34,7 @@ urls.each do |url|
   
     # Save Results Url to file
     image_urls.each_with_index do |imgurl, index|
-      name = "%s_%d_%03d.jpg" % [directory, episode, (index+1)]
+      name = "%s_%s_%03d_%03d.jpg" % [directory, episode, (index+1), image_urls.length]
 
       URI.open(imgurl) do |u|
         File.open(destination_path + name, 'wb') { |f| f.write(u.read) }
@@ -42,6 +45,7 @@ urls.each do |url|
       end
     end
     puts "Complete : " + url
+    images_quantity += image_urls.length
 end
-
+puts "Complete : Download %d images to %s/" % [images_quantity, directory] 
 
